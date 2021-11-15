@@ -12,6 +12,7 @@ public class VilleEntity {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -51,6 +52,16 @@ public class VilleEntity {
     }
 
     @Override
+    public String toString() {
+        return "VilleEntity{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", codePostal=" + codePostal +
+                ", pays='" + pays + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -73,4 +84,5 @@ public class VilleEntity {
         result = 31 * result + (pays != null ? pays.hashCode() : 0);
         return result;
     }
+
 }
