@@ -1,14 +1,25 @@
 package fr.m2i.medical.entities;
 
+
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name = "ville", schema = "medical", catalog = "")
+@Table(name = "ville", schema = "medical5", catalog = "")
 public class VilleEntity {
     private int id;
     private String nom;
     private int codePostal;
     private String pays;
+
+    public VilleEntity(String nom, int codePostal, String pays) {
+        this.nom = nom;
+        this.codePostal = codePostal;
+        this.pays = pays;
+    }
+
+    public VilleEntity() {
+    }
 
     @Id
     @Column(name = "id", nullable = false)
@@ -52,37 +63,15 @@ public class VilleEntity {
     }
 
     @Override
-    public String toString() {
-        return "VilleEntity{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", codePostal=" + codePostal +
-                ", pays='" + pays + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         VilleEntity that = (VilleEntity) o;
-
-        if (id != that.id) return false;
-        if (codePostal != that.codePostal) return false;
-        if (nom != null ? !nom.equals(that.nom) : that.nom != null) return false;
-        if (pays != null ? !pays.equals(that.pays) : that.pays != null) return false;
-
-        return true;
+        return id == that.id && codePostal == that.codePostal && Objects.equals(nom, that.nom) && Objects.equals(pays, that.pays);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (nom != null ? nom.hashCode() : 0);
-        result = 31 * result + codePostal;
-        result = 31 * result + (pays != null ? pays.hashCode() : 0);
-        return result;
+        return Objects.hash(id, nom, codePostal, pays);
     }
-
 }

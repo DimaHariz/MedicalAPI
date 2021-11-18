@@ -4,9 +4,11 @@ import fr.m2i.medical.entities.PatientEntity;
 import fr.m2i.medical.entities.VilleEntity;
 import fr.m2i.medical.repository.PatientRepository;
 import fr.m2i.medical.repository.VilleRepository;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Service;
 
 import java.io.InvalidObjectException;
+import java.sql.SQLException;
 import java.util.NoSuchElementException;
 
 @Service
@@ -18,7 +20,14 @@ public class VilleService {
         this.vr = vr;
     }
 
-    public Iterable<VilleEntity> findAll() {
+    public Iterable<VilleEntity> findAll(  ) {
+        return vr.findAll();
+    }
+
+    public Iterable<VilleEntity> findAll(  String search  ) {
+        if( search != null && search.length() > 0 ){
+            return vr.findByNomContains(search);
+        }
         return vr.findAll();
     }
 
