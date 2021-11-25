@@ -1,6 +1,7 @@
 package fr.m2i.medical.security;
 
 import fr.m2i.medical.entities.UserEntity;
+import org.springframework.context.annotation.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +14,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private UserEntity user;
 
-    public UserDetailsImpl(UserEntity user){
+    public UserDetailsImpl(UserEntity user) {
         this.user = user;
     }
 
@@ -53,4 +54,9 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public UserEntity getUser(){
+        return user;
+    }
+
 }

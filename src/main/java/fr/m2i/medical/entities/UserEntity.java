@@ -1,9 +1,10 @@
 package fr.m2i.medical.entities;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name = "user", schema = "medical", catalog = "")
+@Table(name = "user", schema = "medical5", catalog = "")
 public class UserEntity {
     private int id;
     private String username;
@@ -12,6 +13,26 @@ public class UserEntity {
     private String password;
     private String name;
     private String photouser;
+
+    public UserEntity() {
+    }
+
+    public UserEntity(String username, String email, String roles, String password, String name) {
+        this.username = username;
+        this.email = email;
+        this.roles = roles;
+        this.password = password;
+        this.name = name;
+    }
+
+    public UserEntity(String username, String email, String roles, String password, String name , String photouser) {
+        this.username = username;
+        this.email = email;
+        this.roles = roles;
+        this.password = password;
+        this.name = name;
+        this.photouser = photouser;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
@@ -44,7 +65,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "roles", nullable = false, length = -1)
+    @Column(name = "roles", nullable = false, length = 100)
     public String getRoles() {
         return roles;
     }
@@ -87,29 +108,12 @@ public class UserEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         UserEntity that = (UserEntity) o;
-
-        if (id != that.id) return false;
-        if (username != null ? !username.equals(that.username) : that.username != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (roles != null ? !roles.equals(that.roles) : that.roles != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (photouser != null ? !photouser.equals(that.photouser) : that.photouser != null) return false;
-
-        return true;
+        return id == that.id && Objects.equals(username, that.username) && Objects.equals(email, that.email) && Objects.equals(roles, that.roles) && Objects.equals(password, that.password) && Objects.equals(name, that.name) && Objects.equals(photouser, that.photouser);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (roles != null ? roles.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (photouser != null ? photouser.hashCode() : 0);
-        return result;
+        return Objects.hash(id, username, email, roles, password, name, photouser);
     }
 }

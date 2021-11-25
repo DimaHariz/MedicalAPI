@@ -1,4 +1,4 @@
-function supprimer( resource , id ) {
+function supprimer ( resource , id ) {
     if (confirm("Êtes vous sûr ?")) {
         window.location = '/'+resource+'/delete/' + id;
     }
